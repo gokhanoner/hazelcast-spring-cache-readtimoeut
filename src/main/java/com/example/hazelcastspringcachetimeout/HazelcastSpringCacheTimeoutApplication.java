@@ -5,13 +5,13 @@ import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Service;
+import org.springframework.retry.annotation.EnableRetry;
 
 @SpringBootApplication
 @EnableCaching
+@EnableRetry
 public class HazelcastSpringCacheTimeoutApplication {
 
 	public static void main(String[] args) {
@@ -19,7 +19,7 @@ public class HazelcastSpringCacheTimeoutApplication {
 	}
 
 	@Bean
-	HazelcastInstance hazelcastInstance() {
+	HazelcastInstance hazelcastClientInstance() {
 		Config config = new Config();
 		config.getGroupConfig().setName("cache-test");
 		return Hazelcast.newHazelcastInstance(config);
